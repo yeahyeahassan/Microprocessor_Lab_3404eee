@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UIU Engineers 212 CGPA Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1 class="website-title">UIU Engineers 212 CGPA Calculator</h1>
+        <p class="username">@yeahyeahassan</p>
+    </header>
+
+    <!-- Your existing content goes here -->
+    <main>
+        <h2>CGPA Calculator</h2>
+        <form id="cgpa-form">
+            <label for="totalCredits">Total Credits:</label>
+            <input type="number" id="totalCredits" required>
+            <br>
+
+            <label for="earnedCredits">Earned Credits:</label>
+            <input type="number" id="earnedCredits" required>
+            <br>
+
+            <label for="gpa">GPA:</label>
+            <input type="number" id="gpa" step="0.01" required>
+            <br>
+
+            <button type="submit">Calculate CGPA</button>
+        </form>
+        <p id="result"></p>
+    </main>
+
+    <footer>
+        <div class="footer-box">
+            <p class="footer-text">UIU Engineers 212 CGPA Calculator</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
