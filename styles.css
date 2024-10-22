@@ -137,6 +137,21 @@ button:hover {
     }
 }
 
+.website-name {
+  font-size: 2.5em; /* Adjust the size as needed */
+  font-weight: bold; /* Make the website name bold */
+  color: #2E86C1; /* Choose a color you like */
+  text-align: center; /* Center the text */
+  margin-top: 20px;
+}
+
+.username {
+  font-size: 1.2em; /* Slightly smaller for the username */
+  color: #5D6D7E; /* A softer, complementary color for the username */
+  font-style: italic; /* Italicize the username */
+  display: block;
+  margin-top: 5px;
+}
 
 
 
