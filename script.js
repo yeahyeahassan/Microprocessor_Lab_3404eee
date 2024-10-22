@@ -1,25 +1,63 @@
-document.getElementById('cgpa-form').addEventListener('submit', function (e) {
+document.getElementById('cgpaForm').addEventListener('submit', function(e) {
     e.preventDefault();
 
-    const totalCredits = parseFloat(document.getElementById('totalCredits').value);
-    const earnedCredits = parseFloat(document.getElementById('earnedCredits').value);
-    const gpa = parseFloat(document.getElementById('gpa').value);
+    const currentCgpa = parseFloat(document.getElementById('currentCgpa').value);
+    const completedCredits = parseFloat(document.getElementById('completedCredits').value);
 
-    // Ensure the input values are valid
-    if (isNaN(totalCredits) || isNaN(earnedCredits) || isNaN(gpa)) {
-        document.getElementById('result').textContent = 'Please enter valid numbers for all fields.';
-        return;
+    let totalNewCredits = 0;
+    let totalNewGradePoints = 0;
+    const courseCredits = document.querySelectorAll('.courseCredit');
+    const courseGrades = document.querySelectorAll('.courseGrade');
+
+    // Calculate new courses GPA
+    for (let i = 0; i < courseCredits.length; i++) {
+        const credit = parseFloat(courseCredits[i].value);
+        const grade = parseFloat(courseGrades[i].value);
+
+        totalNewCredits += credit;
+        totalNewGradePoints += credit * grade;
     }
 
-    // Ensure credits and GPA are positive numbers
-    if (totalCredits <= 0 || earnedCredits <= 0 || gpa < 0 || gpa > 4) {
-        document.getElementById('result').textContent = 'Please ensure the inputs are within valid ranges.';
-        return;
+    // Update CGPA calculation with new courses
+    const newTotalCredits = completedCredits + totalNewCredits;
+    const newCgpa = ((currentCgpa * completedCredits) + totalNewGradePoints) / newTotalCredits;
+
+    // Display updated CGPA
+    document.getElementById('updatedCgpa').textContent = newCgpa.toFixed(2);
+
+    // Display "You are a failure" if CGPA is above 2.90
+    const messageElement = document.getElementById('extraMessage');
+    if (newCgpa > 2.90) {
+        messageElement.textContent = "You are a failure";
+    } else {
+        messageElement.textContent = ""; // Clear any previous message if CGPA is below 2.90
     }
+});
 
-    // Calculate CGPA
-    const cgpa = (earnedCredits / totalCredits) * gpa;
+// Adding new courses dynamically
+document.getElementById('add-course').addEventListener('click', function() {
+    const courseContainer = document.createElement('div');
+    courseContainer.classList.add('course-entry');
+    
+    courseContainer.innerHTML = 
+        <label for="courseCredit">Enter Course Credit:</label>
+        <input type="number" class="courseCredit" placeholder="Credit" min="1" step="0.5" required>
+        <label for="courseGrade">Enter Grade Point:</label>
+        <input type="number" class="courseGrade" placeholder="Grade Point" min="0" max="4" step="0.01" required>
+    ;
+    document.getElementById('courses').appendChild(courseContainer);
+});
 
-    // Display result
-    document.getElementById('result').textContent = `Your calculated CGPA is: ${cgpa.toFixed(2)}`;
+// Adding retake courses dynamically
+document.getElementById('add-retake-course').addEventListener('click', function() {
+    const retakeContainer = document.createElement('div');
+    retakeContainer.classList.add('course-entry');
+    
+    retakeContainer.innerHTML = 
+        <label for="courseCredit">Enter Retake Course Credit:</label>
+        <input type="number" class="courseCredit" placeholder="Credit" min="1" step="0.5" required>
+        <label for="courseGrade">Enter Retake Grade Point:</label>
+        <input type="number" class="courseGrade" placeholder="Grade Point" min="0" max="4" step="0.01" required>
+    ;
+    document.getElementById('retakeCourses').appendChild(retakeContainer);
 });
